@@ -1,0 +1,47 @@
+███████████████████████████████████████████
+█ CAVECODE EXAMPLE — HELLO WORLD (v1.0)
+███████████████████████████████████████████
+
+================================================
+🪨 BLOCK 1 — SHELL
+================================================
+Title: Hello World (CaveCode)
+Short Description:
+  A minimal example showing how to structure a CaveCode file.
+
+Goal:
+  🌐 Show the basic use of glyphs and blocks.
+
+(LOCKED SHELL — change content freely, keep structure.)
+
+================================================
+🎮 BLOCK 2 — BEHAVIOR SUMMARY
+================================================
+On Start:
+  - Display HELLO_TEXT.
+
+On Input:
+  - If user presses any key or taps:
+      - Display INTERACTION_TEXT.
+
+(This block describes behavior in human language, not code.)
+
+================================================
+🖍️ BLOCK 3 — TUNING KNOBS
+================================================
+HELLO_TEXT:          "Hello, CaveCode."
+INTERACTION_TEXT:    "You just interacted with a CaveCode artifact."
+
+# A simple renderer could map these into a UI or console output.
+
+================================================
+🌐 BLOCK 4 — PUBLIC TEXT
+================================================
+TITLE_TEXT:          "CaveCode — Hello World"
+FOOTER_CREDITS:      "Forged with the CaveCode Protocol."
+
+================================================
+🖍️ BLOCK 5 — HUMAN NOTES
+================================================
+# Try changing HELLO_TEXT above and see how your app reacts.
+# This is the heart of CaveCode: easy tweaks, safe zones.
