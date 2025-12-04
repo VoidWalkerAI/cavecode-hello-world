@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CaveCode — SS2 Display Case</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --cc-bg: #020617;
+      --cc-panel: #0b1120;
+      --cc-border: #1f2937;
+      --cc-accent: #fb923c;
+      --cc-text-main: #e5e7eb;
+      --cc-text-soft: #9ca3af;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      color: var(--cc-text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #111827;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    header .title {
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cc-text-soft);
+    }
+    header .badge {
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 146, 60, 0.5);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cc-accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0.75rem;
+    }
+    @media (min-width: 900px) {
+      main {
+        flex-direction: row;
+      }
+    }
+    .panel {
+      background: linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
+      border-radius: 0.75rem;
+      border: 1px solid var(--cc-border);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.75);
+      padding: 0.75rem;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .panel-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--cc-text-soft);
+    }
+    .panel-sub {
+      font-size: 0.7rem;
+      color: var(--cc-text-soft);
+    }
+    .artifact-editor {
+      width: 100%;
+      min-height: 260px;
+      max-height: 420px;
+      resize: vertical;
+      border-radius: 0.5rem;
+      border: 1px solid #111827;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      padding: 0.75rem;
+      white-space: pre;
+      overflow: auto;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .btn-primary {
+      background: var(--cc-accent);
+      color: #111827;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--cc-text-soft);
+      border: 1px solid #1f2937;
+    }
+    .status {
+      margin-top: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--cc-text-soft);
+    }
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      height: 100%;
+    }
+    .app-card {
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%);
+      border-radius: 0.75rem;
+      border: 1px solid #1f2937;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      height: 100%;
+    }
+    .app-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cc-text-soft);
+    }
+    .app-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .app-subtitle {
+      font-size: 0.78rem;
+      color: var(--cc-text-soft);
+    }
+    .app-info {
+      font-size: 0.7rem;
+      color: var(--cc-text-soft);
+    }
+    .iframe-wrap {
+      margin-top: 0.4rem;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid #1f2937;
+      background: #000;
+      flex: 1;
+      min-height: 260px;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+    footer {
+      padding: 0.5rem 0.9rem 0.7rem;
+      border-top: 1px solid #020617;
+      font-size: 0.7rem;
+      color: var(--cc-text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">CAVECODE DISPLAY CASE</div>
+    <div class="badge">Artifact: SS2 Media Player</div>
+  </header>
+
+  <main>
+    <!-- LEFT: CaveCode artifact editor -->
+    <section class="panel" style="flex: 1 1 0; min-width: 0;">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">CAVECODE ARTIFACT</div>
+          <div class="panel-sub">Edit the safe knobs (TITLE_TEXT, SUBTITLE_TEXT, PLAYER_URL, FOOTER_CREDITS).</div>
+        </div>
+      </div>
+      <textarea id="cavecode-input" class="artifact-editor"></textarea>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="applySS2CaveCode()">Apply CaveCode</button>
+        <button class="btn-ghost" onclick="resetSS2CaveCode()">Reset to Default</button>
+      </div>
+      <div id="cc-status" class="status">Loaded default SS2 artifact.</div>
+    </section>
+
+    <!-- RIGHT: Rendered app wrapper -->
+    <section class="panel" style="flex: 1 1 0; min-width: 0;">
+      <div class="app-shell">
+        <div class="app-card">
+          <div class="app-label">Rendered App</div>
+          <div id="app-title" class="app-title">SS2 — Shador Sanders Player</div>
+          <div id="app-subtitle" class="app-subtitle">
+            Touch the knobs in the artifact and re-forge this display.
+          </div>
+          <div id="app-info" class="app-info">
+            Player URL and labels are driven by the CaveCode artifact on the left.
+          </div>
+          <div class="iframe-wrap">
+            <!-- Replace YOUR_SS2_URL_HERE with your real SS2 GitHub Pages URL -->
+            <iframe id="player-frame" src="https://voidwalkerai.github.io/YOUR_SS2_URL_HERE/"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="app-footer">Forged with the CaveCode Protocol.</span>
+    <span>SS2 Display Case · Renderer v0.1</span>
+  </footer>
+
+  <script>
+    // Default SS2 CaveCode artifact text
+    const defaultSS2Artifact = `
+███████████████████████████████████████████
+█ CAVECODE ARTIFACT — SS2 MEDIA PLAYER (v1.0)
+███████████████████████████████████████████
+
+================================================
+🪨 BLOCK 1 — SHELL
+================================================
+Title: SS2 — Shador Sanders Media Player
+Short Description:
+  A display-case wrapper for the SS2 web player, driven by CaveCode.
+
+Goal:
+  Show how a real, existing app can be documented and partially controlled
+  via a CaveCode artifact.
+
+(LOCKED SHELL — edit freely, keep structure.)
+
+================================================
+🎮 BLOCK 2 — BEHAVIOR SUMMARY
+================================================
+On Load:
+  - Display TITLE_TEXT and SUBTITLE_TEXT.
+  - Load PLAYER_URL into the embedded iframe.
+
+On Input:
+  - When the user edits this artifact and presses "Apply CaveCode":
+      - Update the display title and subtitle.
+      - Update the embedded player frame URL if PLAYER_URL changed.
+
+================================================
+🖍️ BLOCK 3 — TUNING KNOBS
+================================================
+TITLE_TEXT:        "SS2 — Shador Sanders Signal"
+SUBTITLE_TEXT:     "Prime-time tape on loop. Powered by CaveCode."
+PLAYER_URL:        "https://voidwalkerai.github.io/YOUR_SS2_URL_HERE/"
+FOOTER_CREDITS:    "Forged with the CaveCode Protocol. SS2 Exhibit."
+
+# Safe changes:
+# - Change TITLE_TEXT and SUBTITLE_TEXT for different skins.
+# - Point PLAYER_URL to another deployed player instance.
+# - Customize FOOTER_CREDITS for your museum or brand.
+
+================================================
+🌐 BLOCK 4 — PUBLIC TEXT
+================================================
+DISPLAY_LABEL:     "Rendered from SS2 CaveCode artifact."
+INFO_LINE:         "This is a real web player wrapped in a CaveCode display case."
+
+================================================
+🖍️ BLOCK 5 — HUMAN NOTES
+================================================
+# This artifact does NOT contain the actual SS2 player source code.
+# It documents the behavior and surface text for the exhibit wrapper.
+# The embedded app can live in its own repo and be maintained separately.
+# CaveCode becomes the map and museum plaque for what you're looking at.
+`;
+
+    function extractValue(line) {
+      const idx = line.indexOf(":");
+      if (idx === -1) return null;
+      let value = line.slice(idx + 1).trim();
+
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      return value;
+    }
+
+    function parseSS2Config(text) {
+      const cfg = {
+        titleText: "SS2 — Shador Sanders Signal",
+        subtitleText: "Prime-time tape on loop. Powered by CaveCode.",
+        playerUrl: "https://voidwalkerai.github.io/YOUR_SS2_URL_HERE/",
+        footerCredits: "Forged with the CaveCode Protocol. SS2 Exhibit.",
+        infoLine: "This is a real web player wrapped in a CaveCode display case."
+      };
+
+      const lines = text.split("\n");
+      for (let raw of lines) {
+        const line = raw.trim();
+
+        if (line.startsWith("TITLE_TEXT")) {
+          const v = extractValue(line);
+          if (v) cfg.titleText = v;
+        } else if (line.startsWith("SUBTITLE_TEXT")) {
+          const v = extractValue(line);
+          if (v) cfg.subtitleText = v;
+        } else if (line.startsWith("PLAYER_URL")) {
+          const v = extractValue(line);
+          if (v) cfg.playerUrl = v;
+        } else if (line.startsWith("FOOTER_CREDITS")) {
+          const v = extractValue(line);
+          if (v) cfg.footerCredits = v;
+        } else if (line.startsWith("INFO_LINE")) {
+          const v = extractValue(line);
+          if (v) cfg.infoLine = v;
+        }
+      }
+      return cfg;
+    }
+
+    function applySS2CaveCode() {
+      const artifactText = document.getElementById("cavecode-input").value;
+      const cfg = parseSS2Config(artifactText);
+
+      document.getElementById("app-title").textContent = cfg.titleText;
+      document.getElementById("app-subtitle").textContent = cfg.subtitleText;
+      document.getElementById("app-info").textContent = cfg.infoLine;
+      document.getElementById("app-footer").textContent = cfg.footerCredits;
+
+      const frame = document.getElementById("player-frame");
+      if (frame && cfg.playerUrl) {
+        frame.src = cfg.playerUrl;
+      }
+
+      document.getElementById("cc-status").textContent =
+        "Applied CaveCode artifact to SS2 display.";
+    }
+
+    function resetSS2CaveCode() {
+      const input = document.getElementById("cavecode-input");
+      input.value = defaultSS2Artifact;
+      applySS2CaveCode();
+      document.getElementById("cc-status").textContent =
+        "Reset to canonical SS2 artifact.";
+    }
+
+    // Initial load
+    document.getElementById("cavecode-input").value = defaultSS2Artifact;
+    applySS2CaveCode();
+  </script>
+</body>
+</html>
